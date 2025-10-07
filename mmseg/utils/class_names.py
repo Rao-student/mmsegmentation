@@ -1,6 +1,33 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from mmengine.utils import is_str
 
+def mvtec_classes():
+    return [
+        'leather', 'pill', 'tile', 'cable', 'zipper', 'bottle',
+        'capsule', 'carpet', 'transistor', 'toothbrush', 'metal_nut',
+        'hazelnut', 'screw', 'grid', 'wood'
+    ]
+
+def mvtec_palette():
+    return [
+        [128, 64, 128], [244, 35, 232], [70, 70, 70], [102, 102, 156],
+        [190, 153, 153], [153, 153, 153], [250, 170, 30], [220, 220, 0],
+        [107, 142, 35], [152, 251, 152], [70, 130, 180],
+        [220, 20, 60], [255, 0, 0], [0, 0, 142], [0, 0, 70]
+    ]
+
+def visa_classes():
+    return [
+        'candle', 'capsules', 'cashew', 'chewinggum', 'fryum', 'macaroni1',
+        'macaroni2', 'pcb1', 'pcb2', 'pcb3', 'pcb4', 'pipe_fryum'
+    ]
+
+def visa_palette():
+    return [
+        [128, 64, 128], [244, 35, 232], [70, 70, 70], [102, 102, 156],
+        [190, 153, 153], [153, 153, 153], [250, 170, 30], [220, 220, 0],
+        [107, 142, 35], [152, 251, 152], [70, 130, 180]
+    ]
 
 def cityscapes_classes():
     """Cityscapes class names for external use."""
@@ -510,7 +537,9 @@ dataset_aliases = {
     'hsidrive': [
         'hsidrive', 'HSIDrive', 'HSI-Drive', 'hsidrive20', 'HSIDrive20',
         'HSI-Drive20'
-    ]
+    ],
+    'mvtec': ['mvtec'],
+    'visa': ['visa']
 }
 
 

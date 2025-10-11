@@ -1,9 +1,11 @@
 _base_ = [
     '../_base_/models/bisenetv2.py',
-    '../_base_/datasets/cityscapes_1024x1024.py',
-    '../_base_/default_runtime.py', '../_base_/schedules/schedule_160k.py'
+    '../_base_/datasets/seas_dataset.py',
+    '../_base_/default_runtime.py', 
+    '../_base_/schedules/schedule_160k.py'
 ]
-crop_size = (1024, 1024)
+
+crop_size = (256, 256)
 data_preprocessor = dict(size=crop_size)
 model = dict(data_preprocessor=data_preprocessor)
 param_scheduler = [
@@ -13,7 +15,7 @@ param_scheduler = [
         eta_min=1e-4,
         power=0.9,
         begin=1000,
-        end=160000,
+        end=120000,
         by_epoch=False,
     )
 ]

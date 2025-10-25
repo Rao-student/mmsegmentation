@@ -139,15 +139,21 @@ class AnomalyMetric(BaseMetric):
             labels_flat = (gt[mask] == 1).astype(np.uint8).ravel()
 
             # ---- 图像级：avg_pool 后取全局最大（不对 ignore 做 mask，复刻你的脚本）----
-            score_t = torch.from_numpy(score_map).float().unsqueeze(0).unsqueeze(0)  # [1,1,H,W]
-            pooled = F.avg_pool2d(
-                score_t,
-                kernel_size=self.image_pool_kernel,
-                stride=self.image_pool_stride,
-                padding=self.image_pool_padding
-            )
-            image_score = float(pooled.max().item())
-            image_label = int((gt[mask] == 1).any())  # 是否存在任意异常像素
+            # 2025-10-25 这是之前U-Net写法, 指标有点低
+            # score_t = torch.from_numpy(score_map).float().unsqueeze(0).unsqueeze(0)  # [1,1,H,W]
+            # pooled = F.avg_pool2d(
+            #     score_t,
+            #     kernel_size=self.image_pool_kernel,
+            #     stride=self.image_pool_stride,
+            #     padding=self.image_pool_padding
+            # )
+            # image_score = float(pooled.max().item())
+            # image_label = int((gt[mask] == 1).any())  # 是否存在任意异常像素
+
+            # 2025-10-25 看LFD的计算, 我改一下
+            image_score = float(score_map.max())
+            # 标签 = 是否存在任意非零像素（不对 ignore_index 做 mask）
+            image_label = int((gt != 0).any())
 
 
             # ===== 强力调试日志: 检查将要append的数据 =====
